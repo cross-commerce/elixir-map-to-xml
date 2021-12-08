@@ -111,4 +111,9 @@ will output:
 <Tag1 id="123" something="111">some value</Tag1>
 ```
 
+## OrdMap
+
+[OrdMap](https://github.com/MartinKavik/ord_map) are supported, but it raises if normal maps are
+used together.
+
 See [tests](test/map_to_xml_test.exs) for some more examples.

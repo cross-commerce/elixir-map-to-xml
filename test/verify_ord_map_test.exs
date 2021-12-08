@@ -25,7 +25,10 @@ defmodule VerifyOrdMapTest do
                    fn ->
                      VerifyOrdMap.verify(
                        o(%{
-                         key1: %{key2: :value}
+                         key1:
+                           o(%{
+                             key2: %{key3: :value}
+                           })
                        })
                      )
                    end

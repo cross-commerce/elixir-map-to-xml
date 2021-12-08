@@ -23,8 +23,10 @@ defmodule VerifyOrdMap do
     |> Enum.all?()
   end
 
+  defp deep_is_ord_map(%{}), do: false
+
   defp is_ord_map(list) when is_list(list), do: Enum.map(list, &deep_is_ord_map/1)
-  defp is_ord_map(%OrdMap{}), do: true
+  defp is_ord_map(%OrdMap{} = map), do: deep_is_ord_map(map)
   defp is_ord_map(%{}), do: false
   defp is_ord_map(_), do: false
 

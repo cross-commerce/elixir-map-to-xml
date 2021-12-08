@@ -114,9 +114,9 @@ defmodule MapToXml do
   @spec from_map(map) :: binary
   def from_map(%{} = map) do
     map
-    |> Map.keys()
-    |> Enum.map(fn key ->
-      build_tag(key, map[key])
+    |> VerifyOrdMap.verify()
+    |> Enum.map(fn {key, value} ->
+      build_tag(key, value)
     end)
     |> document()
     |> generate()
@@ -125,7 +125,7 @@ defmodule MapToXml do
   defp build_tag(key, value, attributes \\ %{})
 
   defp build_tag(key, %{} = map, attributes) do
-    keys = Map.keys(map)
+    keys = Enum.map(map, fn {key, _} -> key end)
 
     if Enum.member?(keys, "#content") do
       attributes =

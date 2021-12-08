@@ -1,6 +1,8 @@
 defmodule MapToXmlTest do
   use ExUnit.Case
 
+  import OrdMap
+
   describe "basic functionality" do
     test "one tag" do
       assert MapToXml.from_map(%{
@@ -120,6 +122,30 @@ defmodule MapToXmlTest do
                }
              }) ==
                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Tag1 id=\"1234\" something=\"value\">value1</Tag1>\n<Tag1 id=\"1234\" something=\"value\">value2</Tag1>"
+    end
+  end
+
+  describe "accepts a OrdMap" do
+    test "simple usage with a OrdMap" do
+      assert MapToXml.from_map(
+               o(%{
+                 "Tag1" => "Value1"
+               })
+             ) == "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<Tag1>Value1</Tag1>"
+    end
+
+    test "ensure all maps are a OrdMap" do
+      assert_raise RuntimeError,
+                   "when using a OrdMap, all maps must be a OrdMap too",
+                   fn ->
+                     MapToXml.from_map(
+                       o(%{
+                         "Tag1" => %{
+                           "Tag2" => "Value1"
+                         }
+                       })
+                     )
+                   end
     end
   end
 end

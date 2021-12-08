@@ -36,6 +36,7 @@ defmodule MapToXml.MixProject do
   defp deps do
     [
       {:xml_builder, "~> 2.1.1"},
+      {:ord_map, "~> 0.1.0"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
       {:credo, "~> 1.1", only: [:dev, :test]},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev, :test], runtime: false}
